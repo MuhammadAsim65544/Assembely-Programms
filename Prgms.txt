@@ -1,0 +1,97 @@
+;11/26/2020
+//program 1..............................................................................
+;//program to find which number is greater
+.model small
+.stack 100h
+.data
+
+str1 db 'The first number is greater',10d,13d,'$'
+str2 db 'The first number is smaller',10d,13d,'$'
+str3 db 'Both numbers are equal',10d,13d,'$'
+.code
+main proc
+
+mov ax,@data
+mov ds,ax
+
+mov al,3
+mov bl,4
+
+cmp al,bl
+je block1
+
+cmp al,bl
+ja block2
+
+cmp al,bl
+jb block3
+
+block1:
+mov dx,offset str3
+mov ah,09
+int 21h
+jmp finish
+
+
+block2:
+mov dx,offset str1
+mov ah,09
+int 21h
+jmp finish
+
+
+block3:
+mov dx,offset str2
+mov ah,09
+int 21h
+
+
+finish:
+
+mov ah,4ch
+int 21h
+main endp
+
+
+
+
+
+
+//Program 2...................................................
+;print numbers 0 to 9 using conditonal statements (Implement the concept of ;loop)
+.model small
+.stack 100h
+.data
+.code
+
+main proc
+
+mov bh,48
+mov bl,57
+
+lp1:
+
+cmp bh,bl
+ja finish
+
+mov dl,bh
+mov ah,02
+int 21h
+inc bh
+
+mov dl,10d
+mov ah,02
+int 21h
+mov dl,13d
+mov ah,02
+int 21h
+
+jmp lp1
+
+
+finish:
+mov ah,4ch
+int 21h
+main endp
+end main
+

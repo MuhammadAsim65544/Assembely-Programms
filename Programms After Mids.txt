@@ -1,0 +1,1345 @@
+Programms After Mids
+Lab#1
+Program 1:
+.model small
+.stack 100h
+.data
+.code
+
+main proc
+
+mov bh,48
+mov bl,57
+
+lp1:
+
+cmp bh,bl
+ja finish
+
+mov dl,bh
+mov ah,02
+int 21h
+inc bh
+
+mov dl,10d
+mov ah,02
+int 21h
+mov dl,13d
+mov ah,02
+int 21h
+
+jmp lp1
+
+
+finish:
+mov ah,4ch
+int 21h
+main endp
+end main
+//................................
+Program#2
+model small
+.stack 100h
+.data
+.code
+
+main proc
+
+mov al,48
+mov cx,10
+
+lp1:
+mov dl,al
+mov ah,02
+int 21h
+inc al
+
+loop lp1
+
+
+mov ah,4ch
+int 21h
+main endp
+end main
+//.............................
+Programe#3
+model small
+.stack 100h
+.data
+.code
+
+main proc
+
+mov al,49
+mov cx,5
+
+lp1:
+mov dl,al
+mov ah,02
+int 21h
+inc al
+inc al
+
+loop lp1
+
+
+mov ah,4ch
+int 21h
+main endp
+end main
+//...............................
+Program#4
+.model small
+.stack 100h
+.data
+.code
+
+main proc
+
+mov al,57
+mov cx,5
+
+lp1:
+mov dl,al
+mov ah,02
+int 21h
+dec al
+dec al
+
+loop lp1
+
+
+mov ah,4ch
+int 21h
+main endp
+end main
+//............................
+//.............................LAB#2
+Program>>1
+.model large
+.stack 100h
+.data
+str1 db "The first number is min",'$'
+str2 db "The second number is min",'$'
+.code
+main proc
+mov ax,@data
+mov ds,ax
+mov ah,01
+int 21h
+mov cl, al
+mov ah,01
+int 21h
+mov bl, al
+
+	cmp bl, cl
+	jl block2				
+	mov dx,offset str1	
+	mov ah,09
+	int 21h
+	jmp finish
+
+	block2:
+	mov dx,offset str2	
+	mov ah,09
+	int 21h
+
+finish:
+mov ax,4c00h
+int 21h
+
+main endp
+end main
+//.......................................
+
+Program>>2
+.model large
+.stack 100h
+.data
+str1 db "The first number is min",'$'
+str2 db "The second number is min",'$'   
+str3 db "Both numbers are equal",'$' 
+str4 db "Enter first number:",'$' 
+str5 db "Enter second number:",'$' 
+.code
+main proc
+mov ax,@data
+mov ds,ax  
+mov dx,offset str4	
+mov ah,09
+int 21h
+mov ah,01
+int 21h
+mov cl, al 
+mov dx,offset str5	
+mov ah,09
+int 21h
+mov ah,01
+int 21h
+mov bl, al
+
+	cmp bl, cl
+	jl block2	
+	cmp bl,cl
+	je block3			
+	mov dx,offset str1	
+	mov ah,09
+	int 21h
+	jmp finish
+
+	block2:
+	mov dx,offset str2	
+	mov ah,09
+	int 21h  
+	jmp finish 
+	block3:
+	mov dx,offset str3
+    mov ah,09
+    int 21h
+finish:
+mov ax,4c00h
+int 21h
+
+main endp
+end main
+//....................................
+//Lab#3
+Program
+//Check Wovels & display which is wovel if not display constant.
+.model small
+.stack 100h
+.data 
+str1 db "a is Vowel ",'$' 
+str2 db "i is Vowel ",'$'
+str3 db "e is Vowel ",'$'
+str4 db "o is Vowel ",'$'
+str5 db "u is Vowel ",'$'
+str6 db "Constant",'$'
+.code
+main proc
+mov ax,@data
+mov ds,ax  
+mov ah,01
+int 21h
+mov bl,al
+cmp bl,'a'
+je block1    
+cmp bl,'i'
+je block2
+cmp bl,'e'
+je block3
+cmp bl,'o'
+je block4
+cmp bl,'u'
+je block5
+mov dx,offset str6
+mov ah,09
+int 21h
+jmp finish 
+
+block1:
+mov dx,offset str1
+mov ah,09
+int 21h 
+jmp finish
+block2:
+mov dx,offset str2
+mov ah,09
+int 21h  
+jmp finish
+block3:
+mov dx,offset str3
+mov ah,09
+int 21h  
+jmp finish
+block4:
+mov dx,offset str4
+mov ah,09
+int 21h 
+jmp finish 
+block5:
+mov dx,offset str5
+mov ah,09
+int 21h   
+finish: 
+mov ax,4c00h
+int 21h
+main endp
+end main
+//........................
+Lab#4
+Program1
+//title find the sum of 0+1+2+3
+
+.model large
+.stack 100h
+
+.code
+main proc
+
+mov cl, 51
+
+mov al, 48
+
+mov ch,al
+mov dl,ch                ;        to dispaly the number
+mov ah,2
+int 21h
+
+whilelp:
+cmp al, cl
+ja whileend                ; to end the loop
+
+mov dl,al                ;        to dispaly the number
+mov ah,2
+int 21h
+
+add ch,al                ; to sum the series
+sub ch,48
+
+add al,1
+
+
+
+jmp whilelp                ; to jump to a while loop
+
+
+
+whileend:
+
+
+
+mov dl,ch                ;        to dispaly the sum
+mov ah,2
+int 21h
+
+
+mov ax,4c00h
+int 21h
+
+main endp
+end
+//................................
+Program 2
+//Title: Arrays Concept
+//bx resister is used with the arrays to contain the index of arrays
+; title ARRAY we note that array index in assebly starts from 0
+
+//Code to display a character array
+.model small
+.stack 100h
+
+.data
+
+Array  db  'Qamar Abbas'    
+
+.code
+main proc
+
+mov ax, @data
+mov ds,ax
+
+
+mov cx, 11
+mov bx,0
+
+lp:
+	mov al, Array[bx]
+	mov dl, al
+	mov ah,2
+	int 21h
+    inc bx
+loop lp
+
+
+
+mov ah,4ch
+int 21h
+
+main endp
+end main
+//.......................................
+Program 3
+//write a program to display 0 to 9 using array
+.model small
+.stack 100h
+.data
+  array1 db 0,1,2,3,4,5,6,7,8,9	  ; note index of array starts from 0
+.code
+
+main proc
+
+mov ax, @data
+mov ds, ax
+
+mov cx,10
+
+mov bx,0	; it should be base or index register and none else
+
+lp2:
+
+mov al,array1[bx]
+mov dl,al
+add dl,48
+mov ah,02
+int 21h
+
+
+inc bx 
+
+loop lp2
+
+
+mov ah,4ch
+int 21h
+main endp
+end main
+//....................................................
+//class 6Jan2021
+>>Program1
+; write a program to display 0 to 9 using array in reverse order
+.model small
+.stack 100h
+.data
+  array1 db 0,1,2,3,4,5,6,7,8,9	  ; note index of array starts from 0
+.code
+
+main proc
+
+mov ax, @data
+mov ds, ax
+
+mov cx,10
+
+mov bx,9		; last index of 10 values is 9 and first is 0 ; 
+			; it should be base or index register and none else
+
+lp2:
+
+mov al,array1[bx]
+mov dl,al
+add dl,48
+mov ah,02
+int 21h
+
+
+dec bx 
+
+loop lp2
+
+
+mov ah,4ch
+int 21h
+main endp
+end main
+//........................................
+>>Program2
+;title to print your name with the help of the array
+;ARRAY we note that array index in assebly starts from 0
+
+
+.model small
+.stack 100h
+
+.data
+
+Array  db  'Qamar123$'    
+
+count db 0
+.code
+main proc
+
+mov ax, @data
+mov ds,ax
+
+mov bx,0
+mov cl,0
+
+lp:
+	cmp Array[bx],'$'
+	je block2
+
+	mov dl,Array[bx]
+	mov ah,02
+	int 21h
+
+	inc cl
+    inc bx
+
+jmp lp
+
+
+block2:
+mov dl,cl
+add dl,48
+mov ah,02
+int 21h
+
+
+mov ah,4ch
+int 21h
+
+main endp
+end main
+//..............................
+>>Program#3
+;Display an error in reverse Order
+.model small
+.stack 100h
+
+.data
+
+Array  db  'Qamar123$'    
+count db 0
+
+.code
+main proc
+
+mov ax, @data
+mov ds,ax
+
+mov bx,0
+mov cl,0
+
+lp1:
+	mov al, Array[bx]	
+	cmp al,'$'
+	je block2
+	inc cl
+    inc bx
+
+jmp lp1
+
+
+block2:
+mov dl,cl
+add dl,48
+mov ah,02
+int 21h
+
+
+mov dl,10d
+mov ah,02
+int 21h
+
+
+
+mov bx,cx					; to display reverse order of a string
+
+dec bx
+
+lp2:
+	mov dl, Array[bx]	
+	mov ah,02
+	int 21h
+	dec bx
+jmp lp2
+
+
+
+mov ah,4ch
+int 21h
+
+main endp
+end main
+//.................................
+>>Program#4
+;To find sum of array Elements
+.model small
+.stack 100h
+.data
+
+  array1 db 0,1,2,1,4	  ; note index of array starts from 0
+
+  str1 db 'The sum of array elements $'
+  
+
+.code
+
+main proc
+
+mov ax, @data
+mov ds, ax
+
+mov cx,5
+
+
+mov bx,0	; it should be base or index register and none else
+
+mov al,0
+
+
+srch:
+ add al,array1[bx] 
+ inc bx 
+loop srch
+
+mov bl,al
+
+mov dl,10d
+mov ah,02
+int 21h
+
+mov dl,10d
+mov ah,02
+int 21h
+
+
+
+
+mov dx,offset str1
+mov ah,09
+int 21h
+
+mov dl,bl
+add dl,48
+mov ah,02
+int 21h
+
+
+mov ah,4ch
+int 21h
+main endp
+end main
+//............................................
+Lab....7jan
+.model small
+.stack 100h
+
+.data
+
+Array  db  'Qamar123$'    
+count db 0
+
+.code
+main proc
+
+mov ax, @data
+mov ds,ax
+
+mov bx,0
+mov cx,0
+
+lp1:
+	mov al, Array[bx]	
+	cmp al,'$'
+	je block2
+	inc cx
+    inc bx
+
+jmp lp1
+
+
+block2:
+
+mov dx,cx	; optional
+add dx,48
+mov ah,02
+int 21h
+
+
+mov dl,10d
+mov ah,02
+int 21h
+
+
+
+mov bx,cx			; to display reverse order ofa string
+
+dec bx
+
+lp2:
+	mov dl, Array[bx]	
+	mov ah,02
+	int 21h
+	dec bx
+loop lp2
+
+
+
+mov ah,4ch
+int 21h
+
+main endp
+end main
+//..........................
+program2
+
+; write a program to find min; note dont use varibale min in data segment, otherwise one label to array error
+
+.model small
+.stack 100h
+.data
+  array1 db 6,1,2,3,4,5,0,9,8,7	  ; note index of array starts from 0
+  str db 'The min number in given array is = $'
+
+.code
+
+main proc
+
+mov ax, @data
+mov ds, ax
+
+mov cx,9
+
+mov dl,array1[0]
+
+
+mov bx,1	; it should be base or index register and none else
+
+
+lp2:
+
+cmp dl, array1[bx]
+jg block1
+
+jmp block2
+block1:
+	mov dl,array1[bx]
+
+   block2:
+	inc bx 
+
+loop lp2
+
+mov bl, dl
+
+mov dx, offset str
+mov ah,09
+int 21h 
+
+
+
+mov dl,bl
+add dl,48
+mov ah,02
+int 21h
+
+
+mov ah,4ch
+int 21h
+main endp
+end main
+//............................
+Program3
+.model small
+.stack 100h
+.data
+  array1 db 6,1,2,3,4,5,0,9,8,7	  ; note index of array starts from 0
+  str db 'The max number in given array is = $'
+
+.code
+
+main proc
+
+mov ax, @data
+mov ds, ax
+
+mov cx,9
+
+mov dl,array1[0]
+
+
+mov bx,1	; it should be base or index register and none else
+
+
+lp2:
+
+cmp dl, array1[bx]
+jl block1
+
+jmp block2
+
+   block1:
+	mov dl,array1[bx]
+
+   block2:
+	inc bx 
+
+loop lp2
+
+mov bl, dl
+
+mov dx, offset str
+mov ah,09
+int 21h 
+
+
+
+mov dl,bl
+add dl,48
+mov ah,02
+int 21h
+
+
+mov ah,4ch
+Int 21h
+Main endp
+End main
+//.........................
+program4
+;Write a program to search any user defined number from array
+
+.model small
+.stack 100h
+.data
+
+  array1 db 6,1,2,3,4,7,0,9,8,7	  ; note index of array starts from 0
+
+  str1 db 'The search is successful $'
+
+  str2 db 'The search is not successful $'
+
+;  flag1 db 0
+ 
+
+.code
+
+main proc
+
+mov ax, @data
+mov ds, ax
+
+mov cx,10
+
+
+mov bx,0	; it should be base or index register and none else
+
+mov dl,5
+
+
+srch:
+
+ cmp array1[bx], dl
+ je block1
+
+ inc bx 
+
+loop srch
+
+ jmp block2
+
+block1:
+
+	mov dx, offset str1
+	mov ah,09
+	int 21h 
+	jmp finish
+
+block2:
+	mov dx, offset str2
+	mov ah,09
+	int 21h 
+    
+
+
+
+finish: 
+mov ah,4ch
+int 21h
+main endp
+end main
+//..................
+program5
+; To search and print position if exist 
+.model small
+.stack 100h
+.data
+
+  array1 db 6,1,2,3,4,7,0,9,8,7	  
+
+  str db 'Searched number is at location = $'
+
+  str1 db 'The search is successful $'
+
+  str2 db 'The search is not successful $'
+
+;  flag1 db 0
+ 
+
+.code
+
+main proc
+
+mov ax, @data
+mov ds, ax
+
+mov cx,10
+
+
+mov bx,0	
+
+mov dl,3
+
+
+srch:
+
+ cmp array1[bx], dl
+ je block1
+
+ inc bx 
+
+loop srch
+
+ jmp block2
+
+block1:
+
+	mov dx, offset str1
+	mov ah,09
+	int 21h
+
+        mov dx, offset str
+        mov ah,09
+	int 21h
+
+        inc bx
+        mov dl,bx
+        add dl,48
+        mov ah,02
+        int 21h
+        
+        jmp finish
+
+block2:
+	mov dx, offset str2
+	mov ah,09
+	int 21h 
+    
+
+
+
+finish: 
+mov ah,4ch
+int 21h
+main endp
+end main
+//..............................................
+class 13Jan
+Program>>1
+title function program TO READ AND DISPLAY A CHARACTER FROM USER
+.model large
+.stack 100h
+
+.data
+nl db ' ',10d, 13d,'$'	; ' ' contains space that is compulsory
+
+.code
+main proc
+mov ax, @data
+mov ds, ax
+
+call getc
+
+mov cl, al		; save read character
+
+call  newline
+
+mov dl, cl		; to display read character move in dl
+call putc
+
+mov ax,4c00h ; mov ah,4ch
+int 21h
+
+main endp
+
+  getc: 				
+	mov ah, 01
+	int 21h
+  ret
+
+
+  putc: 				
+	mov ah, 2h
+	int 21h
+  ret
+newline: 				
+	mov dx, offset nl
+	mov ah, 09
+	int 21h
+  ret
+
+end main
+//........................................
+Program>>2
+title function program for addition of two user defined nos
+.model large
+.stack 100h
+
+.data
+nl db ' ',10d, 13d,'$'	; ' ' contains space that is compulsory
+
+.code
+main proc
+
+mov ax, @data
+mov ds, ax
+
+call getc
+
+mov cl, al		; save read character
+sub cl,48
+
+call  newline
+
+call getc
+
+mov ch, al		; save read character
+sub ch,48
+
+call add1
+
+call  newline
+
+mov dl, cl		; to display read character move in dl
+call putc                       a
+
+mov ax,4c00h ; mov ah,4ch
+int 21h
+
+main endp
+
+  getc: 				
+	mov ah, 01
+	int 21h
+  ret
+putc: 				
+	mov ah, 2h
+	int 21h
+  ret
+
+  newline: 				
+	mov dx, offset nl
+	mov ah, 09
+	int 21h
+  ret
+
+  add1:
+	  add cl,ch
+	  add cl,48
+  ret	
+
+end main
+/...........................................
+Program>>3
+;title function program arithmetic operations
+.model large
+.stack 100h
+.data
+nl db ' ',10d, 13d,'$'
+
+.code
+main proc
+mov ax, @data
+mov ds, ax
+
+call input
+mov cl,al
+
+call newline
+
+call input
+mov ch,al
+
+call newline
+
+call sum
+
+mov dl,cl
+
+call display
+
+
+;call subtract
+
+mov dl,cl
+
+call display
+
+
+mov ax,4c00h
+int 21h
+
+main endp
+
+  input: 	
+	mov ah, 01
+	int 21h
+  ret
+
+
+  display:  				
+	mov ah, 2h
+	int 21h
+  ret
+
+  sum:  				
+	add cl, ch	;	add the character values of cl, ch
+	sub cl, 48	; 	as character s
+ret
+
+  newline: 				
+	mov dx, offset nl
+	mov ah, 09
+	int 21h
+  ret
+
+end main
+//............................
+Class+Lab 14January_2021
+Program>>1
+.model large
+.stack 100h
+.data
+	nl db ' ',10d, 13d,'$'
+
+	num1 db ?
+	num2 db ?
+
+.code
+main proc
+mov ax, @data
+mov ds, ax
+
+call input
+mov num1,al
+
+call newline
+
+call input
+mov num2,al
+
+call newline
+
+call sum
+mov dl,cl
+call display
+
+call newline
+
+call subtract
+mov dl,cl
+call display
+
+call newline
+
+call multiply
+mov dl,cl
+call display
+ 
+call newline
+
+call divide		
+mov dl,bl	; quotient display
+call display
+mov dl,bh	; Remainder display
+call display
+
+
+
+mov ax,4c00h
+int 21h
+
+main endp
+
+  input: 	
+	mov ah, 01
+	int 21h
+  ret
+
+
+  display:  				
+	mov ah, 2h
+	int 21h
+  ret
+
+  sum:  				
+	mov cl, num1
+	add cl, num2	;add the character values of cl, value2
+	sub cl, 48	; as character so subtract as adding these two chars
+  ret
+
+  subtract:  				
+	mov cl, num1
+	sub cl, num2	;add the character values of cl, value2
+	add cl, 48	; as character so subtract as adding these two chars
+  ret
+
+  multiply:  				
+	mov al, num1
+	sub al, 48
+	mov cl, num2		
+	sub cl, 48
+	mul cl		; result will store in al
+	mov cl,al	
+	add cl, 48	
+  ret
+
+  divide:  				
+	mov al, num1
+	sub al, 48
+	mov cl, num2		
+	sub cl, 48
+	mov ah,0
+	div cl		; result will store in al
+	mov bl,al 
+	add bl,48
+	mov bh,ah
+	add bh,48
+  ret
+
+
+
+  newline: 				
+	mov dx, offset nl
+	mov ah, 09
+	int 21h
+  ret
+
+end main
+//........................................
+Task.......Use Proper string messages in the previous program(1)
+.model large
+.stack 100h
+.data
+	nl db ' ',10d, 13d,'$'
+
+	num1 db ?
+	num2 db ?   
+	str1 db 'Please enter 1st number: $' 
+	str2 db 'Please enter 2nd number: $'
+
+str3 db 'The sum is: $'
+
+str4 db 'Difference is: $'    
+str5 db 'Product is: $'  
+str6 db 'Division Quotient is: $'  
+str7 db 'Division Remender is: $'  
+
+
+
+
+.code
+main proc
+mov ax, @data
+mov ds, ax
+
+mov dx, offset str1
+	mov ah,09
+	int 21h
+	
+call input
+mov num1,al
+
+call newline
+
+mov dx, offset str2
+	mov ah,09
+	int 21h
+	
+call input
+mov num2,al
+
+call newline
+mov dx, offset str3
+	mov ah,09
+	int 21h
+call sum
+mov dl,cl
+call display
+
+call newline  
+
+mov dx, offset str4
+	mov ah,09
+	int 21h
+call subtract
+mov dl,cl
+call display
+
+call newline
+mov dx, offset str5
+	mov ah,09
+	int 21h
+call multiply
+mov dl,cl
+call display
+ 
+call newline
+ 
+ mov dx, offset str6
+	mov ah,09
+	int 21h
+call divide		
+mov dl,bl	; quotient display
+call display  
+call newline 
+mov dx, offset str7
+	mov ah,09
+	int 21h
+mov dl,bh	; Remainder display
+call display
+
+
+
+mov ax,4c00h
+int 21h
+
+main endp
+
+  input: 	
+	mov ah, 01
+	int 21h
+  ret
+
+
+  display:  				
+	mov ah, 2h
+	int 21h
+  ret
+
+  sum:  				
+	mov cl, num1
+	add cl, num2	;add the character values of cl, value2
+	sub cl, 48	; as character so subtract as adding these two chars
+  ret
+
+  subtract:  				
+	mov cl, num1
+	sub cl, num2	;add the character values of cl, value2
+	add cl, 48	; as character so subtract as adding these two chars
+  ret
+
+  multiply:  				
+	mov al, num1
+	sub al, 48
+	mov cl, num2		
+	sub cl, 48
+	mul cl		; result will store in al
+	mov cl,al	
+	add cl, 48	
+  ret
+
+  divide:  				
+	mov al, num1
+	sub al, 48
+	mov cl, num2		
+	sub cl, 48
+	mov ah,0
+	div cl		; result will store in al
+	mov bl,al 
+	add bl,48
+	mov bh,ah
+	add bh,48
+  ret
+
+
+
+  newline: 				
+	mov dx, offset nl
+	mov ah, 09
+	int 21h
+  ret
+
+end main
+//.............................................................
